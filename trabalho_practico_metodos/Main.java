@@ -86,6 +86,16 @@ public class Main {
 				case 7:
 					findLucrative(v_count, income_counter, df);
 					break;
+				case 8:
+					displayTotalProfit(income_counter, df);
+					break;
+				case 9:
+					vizualizarDadosDoProgrammador();
+					break;
+				case 10:
+					System.out.println("Goodbye...");
+					break;
+					
 			}
 		} while (opt != 10);
 	}
@@ -112,7 +122,7 @@ public class Main {
 			System.out.print("\n=> ");
 			v_type = Character.toUpperCase(br.readLine().charAt(0));
 			
-			switch (Character.toUpperCase(v_type)) {
+			switch (v_type) {
 				case 'S': case 'U': case 'P': case 'V':					
 					char d_opt;
 					
@@ -231,31 +241,32 @@ public class Main {
 			case 'S':
 				currentCost = ((double) calcPrice(days, SEDAN, driver, driver_count));
 				vehicle_count[0]++;
-				income_count[0] += currentCost;
+				income_count[4] += income_count[0] += currentCost;
 				
 				return currentCost;
 			case 'U':
 				currentCost = ((double) calcPrice(days, SUV, driver, driver_count));
 				vehicle_count[1]++;
-				income_count[1] += currentCost;
+				income_count[4] += income_count[1] += currentCost;
 				
 				return currentCost;
 			case 'P':
 				currentCost = ((double) calcPrice(days, PICKUP, driver, driver_count));
 				vehicle_count[2]++;
-				income_count[2] += currentCost;
+				income_count[4] += income_count[2] += currentCost;
 				
 				return currentCost;
 			case 'V':
 				currentCost = ((double) calcPrice(days, VAN, driver, driver_count)); 
 				vehicle_count[3]++;
-				income_count[3] += currentCost;
+				income_count[4] += income_count[3] += currentCost;
 				
 				return currentCost;
 			default:
 				System.out.println("Invalid data...");			
 				break;
 		}
+		
 		
 		return 0;
 	}
@@ -280,6 +291,14 @@ public class Main {
 		return initialCost;
 	}
 	
+	private static void displayTotalProfit(double[] income_counter, DecimalFormat df) {
+		System.out.println("Total Profit");
+		System.out.println("\n--------------------");
+		System.out.printf("|  %10s  |", df.format(income_counter[4]));
+		System.out.println("\n--------------------");
+		
+	}
+	
 	private static void displayVehicleRentCounters(int[] vCount) {
 		System.out.println("\n\n------------------------");
 		System.out.printf("| %d Sedans were rented |%n", vCount[0]);
@@ -299,7 +318,7 @@ public class Main {
 	}
 	
 	private static void displayVehicleIncome(double[] income, DecimalFormat df) {
-		income[4] = income[0] + income[1] + income[2] + income[3];
+		
 		
 		String[][] table = new String[2][];
 		table[0] = new String[] { "Sedan", "SUV", "Pickup", "Van", "Total" };
@@ -340,11 +359,12 @@ public class Main {
 		targetIndex = searchVehicle(iCounter, lucro); 
 		System.out.println("Most lucrative vehicle\n");
 		
+		if (targetIndex > 0) targetIndex -= 1;
 		
-		streamData(targetIndex-1, vCount, df.format(iCounter[targetIndex]));
+		streamData(targetIndex, vCount, df.format(iCounter[targetIndex]));
 	}
 	
-	private static void streamData(int targetIndex, int[] vehicle_quantity, String vehicle_cost) {
+	private static void streamData(int targetIndex, int[] vehicle_quantity, String vehicle_cost) {		
 		String[] values = new String[] {
 				String.valueOf(vehicle_quantity[targetIndex]),
 				vehicle_cost
@@ -459,4 +479,21 @@ public class Main {
 			return false;
 	}
 	
+	private static void vizualizarDadosDoProgrammador() {
+		String[][] table = new String[4][];
+		table[0] = new String[] { "Nome", "Codigo de estudante" };
+		table[1] = new String[] { "Daniel Kruger", "20220303" };
+		table[2] = new String[] { "Mariamo Narotam", "20220985" };
+		table[3] = new String[] { "Yasser Abdul", "20220384" };
+		
+		System.out.println("===============================================");
+		for (String[] row : table) {
+			System.out.format("| %20s | %20s | %n"
+			+ "===============================================%n", row);			
+		}
+	}
+	
 }
+
+
+
