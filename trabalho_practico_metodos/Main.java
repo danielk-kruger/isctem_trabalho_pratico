@@ -340,8 +340,8 @@ public class Main {
 		
 		// find the index that the largest number belongs to in vCounter
 		targetIndex = searchVehicle(vCounter, largestElem);
-		
 		System.out.println("Most popular vehicle\n");
+		
 		// streamData() -> a utility method to parse, organize and display the data
 		streamData(targetIndex, vCounter, df.format(income_counter[targetIndex]));
 	}
@@ -359,12 +359,10 @@ public class Main {
 		targetIndex = searchVehicle(iCounter, lucro); 
 		System.out.println("Most lucrative vehicle\n");
 		
-		if (targetIndex > 0) targetIndex -= 1;
-		
 		streamData(targetIndex, vCount, df.format(iCounter[targetIndex]));
 	}
 	
-	private static void streamData(int targetIndex, int[] vehicle_quantity, String vehicle_cost) {		
+	private static void streamData(int targetIndex, int[] vehicle_quantity, String vehicle_cost) {
 		String[] values = new String[] {
 				String.valueOf(vehicle_quantity[targetIndex]),
 				vehicle_cost
@@ -410,9 +408,10 @@ public class Main {
 	}
 	
 	private static int searchVehicle(double[] iCounter, double target) {
-		for (int i = 0; i < iCounter.length; i++)
+		for (int i = 0; i < iCounter.length - 1; i++)
 			if (iCounter[i] == target)
 				return i;
+				
 		
 		return 0;
 	}
@@ -440,7 +439,7 @@ public class Main {
 	}
 	
 	private static double findMaxValue(double[] iCounter) {
-		int n = iCounter.length;
+		int n = iCounter.length - 1;
 		double temp = 0;
 		double[] new_arr = new double[n];
 		
